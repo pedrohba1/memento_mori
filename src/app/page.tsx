@@ -5,8 +5,11 @@ import { useEffect, useState } from 'react';
 import { getItem } from '@/lib/indexedDb';
 
 export default function Home() {
-  const age = 26; // Replace with user input or state later
-  const weeksPassed = age * 52;
+  const dateOfBirth = new Date('1998-06-15');
+  const now = new Date();
+  const msPerWeek = 1000 * 60 * 60 * 24 * 7;
+  const weeksPassed = Math.floor((now.getTime() - dateOfBirth.getTime()) / msPerWeek);
+
   const [writtenWeeks, setWrittenWeeks] = useState<Set<number>>(new Set());
 
   useEffect(() => {
