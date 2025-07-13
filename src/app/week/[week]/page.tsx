@@ -31,7 +31,14 @@ export default function WeekPage({ params }: PageProps) {
         onUpdate({ editor }) {
           const json = editor.getJSON();
           setItem(storageKey, json);
-        },
+        
+          // Update writtenWeeks index
+          getItem("writtenWeeks").then((written: number[] = []) => {
+            const updated = new Set(written);
+            updated.add(weekNumber);
+            setItem("writtenWeeks", Array.from(updated));
+          });
+        }
       });
 
       setEditor(newEditor);
