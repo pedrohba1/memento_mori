@@ -6,9 +6,8 @@ import { Editor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { getItem, setItem } from '@/lib/indexedDb';
 
-import Highlight from '@tiptap/extension-highlight'
-import Typography from '@tiptap/extension-typography'
-
+import Highlight from '@tiptap/extension-highlight';
+import Typography from '@tiptap/extension-typography';
 
 type PageProps = {
   params: Promise<{ week: string }>;
@@ -31,14 +30,14 @@ export default function WeekPage({ params }: PageProps) {
         onUpdate({ editor }) {
           const json = editor.getJSON();
           setItem(storageKey, json);
-        
+
           // Update writtenWeeks index
-          getItem("writtenWeeks").then((written: number[] = []) => {
+          getItem('writtenWeeks').then((written: number[] = []) => {
             const updated = new Set(written);
             updated.add(weekNumber);
-            setItem("writtenWeeks", Array.from(updated));
+            setItem('writtenWeeks', Array.from(updated));
           });
-        }
+        },
       });
 
       setEditor(newEditor);
@@ -53,7 +52,7 @@ export default function WeekPage({ params }: PageProps) {
       <div className="mb-6">
         <h1 className="text-2xl font-bold">Week #{weekNumber}</h1>
       </div>
-  
+
       {/* Centered editor */}
       <div className="w-full flex justify-center">
         <div className="w-full max-w-3xl px-4">
@@ -62,5 +61,4 @@ export default function WeekPage({ params }: PageProps) {
       </div>
     </div>
   );
-  
 }
