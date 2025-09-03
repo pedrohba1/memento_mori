@@ -8,15 +8,18 @@ import { getItem, setItem } from '@/lib/indexedDb';
 
 import Highlight from '@tiptap/extension-highlight';
 import Typography from '@tiptap/extension-typography';
+import { useI18n } from '@/i18n';
 
 type PageProps = {
   params: Promise<{ week: string }>;
 };
 
 export default function WeekPage({ params }: PageProps) {
-  const { week } = use(params); // ✅ unwrap Promise
+  const { week } = use(params); // unwrap Promise
   const weekNumber = Number(week);
   const storageKey = `week-${weekNumber}`;
+
+  const { t } = useI18n();
 
   const [editor, setEditor] = useState<Editor | null>(null);
 
@@ -50,7 +53,7 @@ export default function WeekPage({ params }: PageProps) {
     <div className="min-h-screen px-6 py-8">
       {/* Top-left header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold">Week #{weekNumber}</h1>
+        <h1 className="text-2xl font-bold">{t('week.title', { weekNumber })}</h1>
       </div>
 
       {/* Centered editor */}
